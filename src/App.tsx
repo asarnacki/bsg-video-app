@@ -1,12 +1,13 @@
-import React from 'react';
-import './App.css';
-import Login from './components/Login';
+import React from "react";
+import "./App.css";
+import HomeScreen from "./components/HomeScreen";
+import Login from "./components/Login";
 
 function App() {
   return (
     <div className="App">
-      <h1>siema</h1>
       <Login />
+      <HomeScreen />
     </div>
   );
 }
