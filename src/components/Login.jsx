@@ -1,28 +1,53 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { FunctionComponent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createEndpoint, ENDPOINTS } from "./APIService";
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  var [response, setResponse] = useState();
+  var [token, setToken] = useState();
+  var headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  localStorage.setItem("token", token);
+
+  var raw = JSON.stringify({
+    Username: "test@bsgroup.eu",
+    Password: "Test12!@",
+    Device: {
+      PlatformCode: "WEB",
+      Name: "7a6a86e5-356f-4795-8998-305e1b205531",
+    },
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: raw,
+  };
+  useEffect(() => {
+    fetch(createEndpoint(ENDPOINTS.splash), requestOptions)
+      .then((res) => res.json())
+      .then((result) => {
+        setResponse(result);
+        setToken(result.AuthorizationToken.Token);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    navigate("/splash");
   };
 
   return (

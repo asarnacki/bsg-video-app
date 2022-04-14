@@ -6,10 +6,6 @@ function Player() {
   var [response, setResponse] = useState();
   var token = localStorage.getItem('token');
 
-  // var headers = new Headers();
-  // headers.append("Content-Type", "application/json");
-  var token = localStorage.getItem('token');
-
   var raw = JSON.stringify({
     MediaId: 15,
     StreamType: "TRIAL"
@@ -25,7 +21,6 @@ function Player() {
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);
-        // setToken(result.AuthorizationToken.Token);
       })
       .catch((e) => console.log(e));
   }, []);

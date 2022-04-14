@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import  HomeScreen  from "./components/HomeScreen";
-import Login from "./components/Login";
+import Splash from "./components/Splash";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignIn from "./components/test";
+import SignIn from "./components/Login";
 import Player from "./components/Player";
 
 function App() {
@@ -11,9 +11,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="homescreen" element={<HomeScreen />} />
-          <Route path="/sign" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
+          <Route path="/homescreen" element={<HomeScreen />} />
+          <Route path="/splash" element={<Splash />} />
           <Route path="/player" element={<Player />} />
         </Routes>
       </BrowserRouter>
