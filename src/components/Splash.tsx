@@ -1,19 +1,22 @@
+import Button from "@mui/material/Button/";
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { createEndpoint, ENDPOINTS } from "./APIService";
+import { useNavigate } from "react-router-dom";
 
-interface LoginProps {}
-
+interface SplashProps {
+  Token?: string;
+}
 interface IToken {
   AuthorizationToken: {
     Token: string;
     TokenExpires: string;
   };
 }
-const Login: FunctionComponent<LoginProps> = () => {
+const Splash: FunctionComponent<SplashProps> = () => {
   var [response, setResponse] = useState();
-  // var [token, setToken] = useState<IToken[]>([]);
-  var [token, setToken] = useState<string>("");
-  localStorage.setItem("token", token);
+
+  var navigate = useNavigate();
+
   let guid =
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
@@ -32,16 +35,25 @@ const Login: FunctionComponent<LoginProps> = () => {
     headers: headers,
     body: raw,
   };
+
   useEffect(() => {
-    fetch(createEndpoint(ENDPOINTS.login), requestOptions)
+    fetch(createEndpoint(ENDPOINTS.splash), requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        setResponse(result); 
-        setToken(result.AuthorizationToken!.Token)
+        setResponse(result);
+        console.log(response);
       })
       .catch((e) => console.log(e));
   }, []);
-  return <div>Login</div>;
+  
+  return (
+    <Button
+      onClick={() => {
+        navigate("/homescreen")
+      }}
+    >
+      Homescreen
+    </Button>
+  );
 };
-
-export default Login;
+export default Splash;

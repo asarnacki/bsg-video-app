@@ -1,8 +1,10 @@
 export const API = `https://thebetter.bsgroup.eu`;
 
 export const ENDPOINTS = {
-  login: "Authorization/SignIn",
+  splash: "Authorization/SignIn",
   homeScreen: "Media/GetMediaList",
+  player: "Media/GetMediaPlayInfo",
+  login: "Authorization/SignIn"
 };
 
 export function createEndpoint(endpoint: string) {
