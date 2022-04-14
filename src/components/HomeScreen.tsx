@@ -2,34 +2,33 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { isConstructorDeclaration } from "typescript";
 import { createEndpoint, ENDPOINTS } from "./APIService";
 
-interface HomeScreenProps {}
+interface HomeScreenProps {
+}
 
 const HomeScreen: FunctionComponent<HomeScreenProps> = () => {
   var [response, setResponse] = useState();
-  var token = JSON.stringify(localStorage.getItem('token'));
-  // console.log(token)
-  var headers = new Headers(); 
-  headers.append("Content-Type", "application/json");
-  headers.append("Authorization", `Bearer ${token}`);
-
+  var headers = new Headers();
+  var token = localStorage.getItem('token');
+  
   var raw = {
     MediaListId: 2,
     IncludeCategories: false,
     IncludeImages: true,
-    IncludeMedia: false,  
+    IncludeMedia: false,
     PageNumber: 1,
     PageSize: 15,
   };
 
   var requestOptions = {
     method: "POST",
-    headers: headers,
+    headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`},
     body: JSON.stringify(raw),
   };
   useEffect(() => {
     fetch(createEndpoint(ENDPOINTS.homeScreen), requestOptions)
-      .then((res) => res.json())
-      .then((result) => setResponse(result))
+      .then((res) => res.json()) 
+      .then((result) => {setResponse(result)
+        console.log(response)})
       .catch((e) => console.log(e));
   }, []);
 
