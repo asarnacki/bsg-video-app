@@ -13,7 +13,7 @@ import Grid from "@mui/material/Grid";
 interface HomeScreenProps {}
 
 const HomeScreen: FunctionComponent<HomeScreenProps> = () => {
-  var [response, setResponse] = useState<IMovieList>();
+  var [response, setResponse] = useState<IMovieList[]>([]);
   var token = localStorage.getItem("token");
   var navigate = useNavigate();
 
@@ -47,19 +47,18 @@ const HomeScreen: FunctionComponent<HomeScreenProps> = () => {
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);
-        console.log(response);
       })
       .catch((e) => console.log(e));
   }, []);
 
+  console.log(response);
   return (
     <>
       <Grid container spacing={2} columns={15}>
         <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
+          {response.map((CacheDataValidTo) => (
+            <Item>{CacheDataValidTo}</Item>
+          ))}
         </Grid>
       </Grid>
       <Button

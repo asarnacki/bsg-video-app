@@ -17,7 +17,7 @@ export default interface IMovieList {
     Year: number;
   };
   PageNumber: number;
-  PageSize: number;
+  PageSize?: number;
   SourceType: string;
   TotalCount: number;
 }
