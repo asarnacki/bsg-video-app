@@ -20,11 +20,13 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
+    "json-query": "^2.2.2",
     "prettier": "^2.6.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "react-window": "1.8.6",
     "typescript": "^4.6.3",
     "video.js": "^7.18.1",
     "web-vitals": "^2.1.4"
@@ -52,5 +54,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/json-query": "^2.2.3",
+    "@types/react-window": "^1.8.5"
   }
 }
