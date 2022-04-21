@@ -9,13 +9,21 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import { FixedSizeList } from "react-window";
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import IMovieDetails from "./Models/IMovieDetails";
+import { VapeFree } from "@mui/icons-material";
 
 interface HomeScreenProps {}
 
 const HomeScreen: FunctionComponent<HomeScreenProps> = () => {
   var [response, setResponse] = useState<IMovieList[]>([]);
+  var [loading, setLoading] = useState(false);
   var token = localStorage.getItem("token");
   var navigate = useNavigate();
+  var dataArray: IMovieList[];
+  var jsonQuery = require('json-query')
+  var dat;
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -43,33 +51,41 @@ const HomeScreen: FunctionComponent<HomeScreenProps> = () => {
     body: JSON.stringify(raw),
   };
   useEffect(() => {
+    setLoading(true);
     fetch(createEndpoint(ENDPOINTS.homeScreen), requestOptions)
       .then((res) => res.json())
       .then((result) => {
         setResponse(result);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e))
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
-
   console.log(response);
+
+  var entieties = Object.entries(response).filter(
+    (entieties) => entieties
+  );
+    var data = jsonQuery('Entities[**][*Title]', {response:response}).value
+    // console.log(data);
+
+    console.log(jsonQuery('Entities'))
+
   return (
     <>
-      <Grid container spacing={2} columns={15}>
-        <Grid item xs={8}>
-          {response.map((CacheDataValidTo) => (
-            <Item>{CacheDataValidTo}</Item>
-          ))}
-        </Grid>
-      </Grid>
-      <Button
-        onClick={() => {
-          navigate("/player");
-        }}
-      >
-        Player
-      </Button>
+      <List>
+        <ListItemButton onClick={() => navigate("/pages")}>
+          <ListItemText />
+        </ListItemButton>
+      </List>
     </>
   );
 };
-
 export default HomeScreen;
+
+// {Object.keys(response).map((key, value) => (
+//   <ListItemButton key={key} onClick={() => navigate("/pages")}>
+//     <ListItemText primary={`Value ${value}`} />
+//   </ListItemButton>
+// ))}

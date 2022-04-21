@@ -44,12 +44,12 @@ const Splash: FunctionComponent<SplashProps> = () => {
       })
       .catch((e) => console.log(e));
   }, []);
-  
+
   console.log(response);
   return (
     <Button
       onClick={() => {
-        navigate("/homescreen")
+        navigate("/homescreen");
       }}
     >
       Homescreen
